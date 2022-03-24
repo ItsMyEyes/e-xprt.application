@@ -1,0 +1,964 @@
+swagger: '2.0'
+info:
+  title: Paprika Billers API (Staging)
+  description: |
+    Introduction
+    ================================
+    Our simple API will make your integration feel a breeze.
+    _Here are just a few quick tips to get you started_
+
+    Authentication
+    ------------------------
+    * **IP Whitelisting**: All request must come from public IP on our whitelist.
+    * **Client key**: You'll need to supply X-Merchant-Key Header, using client key given to you.
+
+    Now shall we get started?
+
+    Creating Transaction
+    ------------------------
+    Our transaction API endpoint use asynchronous model, which means that all transaction request
+    will first responded with `pending` status, you can then check the transaction by calling
+    the `get detail transaction` API providing the `ref_id`.
+
+    For faster respond we can call your callback API when the transaction is finished.
+    The callback data will contain transaction information and is sent in JSON format, with optional `key` parameter.
+    here's an example :
+    ```
+    {
+      "signature": "5ce082b76fafe4b0295ea9979257df25e859615dbd86630b74a9311cc1ff1ed0",
+      "status_code": 200,
+      "transaction_id": 1,
+      "transaction_status": "success",
+      "datetime": 123456,
+      "ref_id": "x01",
+      "payment_ref_number": "AAAA-AAAA-AAAA",
+      "pin": "123456",
+    }
+    ```
+    HTTP Error Response Status
+    ------------------------
+    Our API will return these http response status on error :
+
+    | Response Status | Body | Description |
+    | -- | -- | -- |
+    | **403** | 403 Forbidden | Invalid authentication |
+    | **403** | 403 Forbidden: Product unavailable | Invalid Product ID |
+    | **403** | 403 Forbidden: Insufficient deposit amount | Insufficient Deposit ( For Partners that use deposit ) |
+
+    Pricing Schema
+    ------------------------
+    There a few schema for the whole product which will be integrated with your System.
+    Basic structure for pricing in **callback format** as follows:
+    ```
+    {
+      "signature": "secret-key",
+      "status_code": 200,
+      "transaction_id": 1,
+      "transaction_status": "success",
+      "datetime": 123456,
+      "ref_id": "x01",
+      "payment_ref_number": "AAAA-AAAA-AAAA",
+      "pin": "123456",
+    }
+    ```
+  contact:
+    name: Paprika Tech Support
+    email: support@paprika.co.id
+  version: "1.0"
+host: devbillers.paprika.co.id
+schemes:
+  - http
+produces:
+  - application/json
+consumes:
+  - application/json
+
+securityDefinitions:
+  UserSecurity:
+    type: apiKey
+    name: X-Merchant-Key
+    in: header
+    description: |
+      All request require X-Merchant-Key with the following:
+
+      X-Merchant-Key: {token}
+
+security:
+  - UserSecurity: []
+
+
+paths:
+  #TV_POSTPAID               
+  /api/v1/transactions/inquiries/tv_postpaid.json:
+    post:
+      consumes:
+        - application/json
+      tags:
+        - TV Postpaid
+      summary: Inquiry Transaction Tv Postpaid.
+      description: |
+        This endpoint is used to create transaction in Paprika Billers and formula inquire is <br/> `hash("sha256", sprintf("%s%s%s", $pubKey, $privKey, $customerNum))`
+
+        | Customer Number | Product Code | Description |
+        | --- | --- | --- |
+        | 1072161401 | tv_postpaid_big_tv | Success Transaction |
+        | 1072161402 | tv_postpaid_big_tv | Failed Transaction |
+      parameters:
+        - in: body
+          name: body
+          required: true
+          description: for inquire transaction.
+          schema:
+            $ref: '#/definitions/RequestInquire'
+      responses:
+        200:
+          description: |
+            List of Kraken Product
+          schema:
+            $ref: '#/definitions/ResponseInquire'
+            
+  /api/v1/transactions/payments/tv_postpaid.json:
+    post:
+      consumes:
+        - application/json
+      tags:
+        - TV Postpaid
+      summary: Create Transaction Tv Postpaid.
+      description: |
+        This endpoint is used to create transaction in Paprika Billers and formula inquire is <br/> `hash('sha256', sprintf('%s%s%s%s', $pubKey, $privKey, $customerNum, $refId))`
+
+        | Customer Number | Product Code | Description |
+        | --- | --- | --- |
+        | 1072161401 | tv_postpaid_big_tv | Success Transaction |
+        | 1072161402 | tv_postpaid_big_tv | Failed Transaction |
+      parameters:
+        - in: body
+          name: body
+          required: true
+          description: for inquire transaction.
+          schema:
+            $ref: '#/definitions/RequestInquire'
+      responses:
+        200:
+          description: |
+            List of Kraken Product
+          schema:
+            $ref: '#/definitions/ResponseTransaction'
+
+  /api/v1/transactions/transaction/tv_postpaid/{ref_id}.json:
+    get:
+      consumes:
+        - application/json
+      tags:
+        - TV Postpaid
+      summary: Detail Transaction Tv Postpaid.
+      description: |
+        formula  inquire is `hash('sha256', sprintf('%s%s%s', $pubKey, $privKey, $refId))` on php
+      parameters:
+        - in: query
+          name: signature
+          type: "string"
+          required: true
+          description: for signature detail transaction.
+        - name: ref_id
+          type: string
+          description: ref id transaction.
+          in: path
+          required: true
+      responses:
+        200:
+          description: |
+            List of Kraken Product
+          schema:
+            $ref: '#/definitions/ResponseDetailTransaction'
+  #END TV_POSTPAID
+
+  #BPJS
+  /api/v1/transactions/inquiries/bpjs_kesehatan.json:
+    post:
+      consumes:
+        - application/json
+      tags:
+        - BPJS Kesehatan
+      summary: Inquiry Transaction BPJS Kesehatan.
+      description: |
+        This endpoint is used to create transaction in Paprika Billers and formula inquire is <br/> `hash("sha256", sprintf("%s%s%s", $pubKey, $privKey, $customerNum))`
+
+        | Customer Number | Product Code | Description |
+        | --- | --- | --- |
+        | 8801234560001 | bpjs_kesehatan | Success Transaction |
+        | 8801234560002 | bpjs_kesehatan | Failed Transaction |
+      parameters:
+        - in: body
+          name: body
+          required: true
+          description: for inquire transaction.
+          schema:
+            $ref: '#/definitions/RequestInquire'
+      responses:
+        200:
+          description: |
+            List of Kraken Product
+          schema:
+            $ref: '#/definitions/ResponseInquire'
+            
+  /api/v1/transactions/payments/bpjs_kesehatan.json:
+    post:
+      consumes:
+        - application/json
+      tags:
+        - BPJS Kesehatan
+      summary: Create Transaction BPJS Kesehatan.
+      description: |
+        This endpoint is used to create transaction in Paprika Billers and formula inquire is <br/> `hash('sha256', sprintf('%s%s%s%s', $pubKey, $privKey, $customerNum, $refId))`
+
+        | Customer Number | Product Code | Description |
+        | --- | --- | --- |
+        | 8801234560001 | bpjs_kesehatan | Success Transaction |
+        | 8801234560002 | bpjs_kesehatan | Failed Transaction |
+      parameters:
+        - in: body
+          name: body
+          required: true
+          description: for inquire transaction.
+          schema:
+            $ref: '#/definitions/RequestInquire'
+      responses:
+        200:
+          description: |
+            List of Kraken Product
+          schema:
+            $ref: '#/definitions/ResponseTransaction'
+
+  /api/v1/transactions/transaction/bpjs_kesehatan/{ref_id}.json:
+    get:
+      consumes:
+        - application/json
+      tags:
+        - BPJS Kesehatan
+      summary: Detail Transaction BPJS Kesehatan.
+      description: |
+        formula  inquire is `hash('sha256', sprintf('%s%s%s', $pubKey, $privKey, $refId))` on php
+      parameters:
+        - in: query
+          name: signature
+          type: "string"
+          required: true
+          description: for signature detail transaction.
+        - name: ref_id
+          type: string
+          description: ref id transaction.
+          in: path
+          required: true
+      responses:
+        200:
+          description: |
+            List of Kraken Product
+          schema:
+            $ref: '#/definitions/ResponseDetailTransaction'
+  #END BPJS
+
+  #MULTIFINANCE
+  /api/v1/transactions/inquiries/multifinance.json:
+    post:
+      consumes:
+        - application/json
+      tags:
+        - Multifinance
+      summary: Inquiry Transaction Multifinance.
+      description: |
+        This endpoint is used to create transaction in Paprika Billers and formula inquire is <br/> `hash("sha256", sprintf("%s%s%s", $pubKey, $privKey, $customerNum))`
+
+        | Customer Number | Product Code | Description |
+        | --- | --- | --- |
+        | 6391601201 | multifinance_wahana_ottomitra_multiartha_finance | Success Transaction |
+        | 639160127 | multifinance_wahana_ottomitra_multiartha_finance | Failed Transaction |
+      parameters:
+        - in: body
+          name: body
+          required: true
+          description: for inquire transaction.
+          schema:
+            $ref: '#/definitions/RequestInquire'
+      responses:
+        200:
+          description: |
+            List of Kraken Product
+          schema:
+            $ref: '#/definitions/ResponseInquire'
+            
+  /api/v1/transactions/payments/multifinance.json:
+    post:
+      consumes:
+        - application/json
+      tags:
+        - Multifinance
+      summary: Create Transaction Multifinance.
+      description: |
+        This endpoint is used to create transaction in Paprika Billers and formula inquire is <br/> `hash('sha256', sprintf('%s%s%s%s', $pubKey, $privKey, $customerNum, $refId))`
+
+        | Customer Number | Product Code | Description |
+        | --- | --- | --- |
+        | 6391601201 | multifinance_wahana_ottomitra_multiartha_finance | Success Transaction |
+        | 639160127 | multifinance_wahana_ottomitra_multiartha_finance | Failed Transaction |
+      parameters:
+        - in: body
+          name: body
+          required: true
+          description: for inquire transaction.
+          schema:
+            $ref: '#/definitions/RequestInquire'
+      responses:
+        200:
+          description: |
+            List of Kraken Product
+          schema:
+            $ref: '#/definitions/ResponseTransaction'
+
+  /api/v1/transactions/transaction/multifinance/{ref_id}.json:
+    get:
+      consumes:
+        - application/json
+      tags:
+        - Multifinance
+      summary: Detail Transaction Multifinance.
+      description: |
+        formula  inquire is `hash('sha256', sprintf('%s%s%s', $pubKey, $privKey, $refId))` on php
+      parameters:
+        - in: query
+          name: signature
+          type: "string"
+          required: true
+          description: for signature detail transaction.
+        - name: ref_id
+          type: string
+          description: ref id transaction.
+          in: path
+          required: true
+      responses:
+        200:
+          description: |
+            List of Kraken Product
+          schema:
+            $ref: '#/definitions/ResponseDetailTransaction'
+  #END MULTIFINANCE
+
+  #PLN POSTPAID
+  /api/v1/transactions/inquiries/pln_postpaid.json:
+    post:
+      consumes:
+        - application/json
+      tags:
+        - PLN Postpaid
+      summary: Inquiry Transaction PLN Postpaid.
+      description: |
+        This endpoint is used to create transaction in Paprika Billers and formula inquire is <br/> `hash("sha256", sprintf("%s%s%s", $pubKey, $privKey, $customerNum))`
+
+        | Customer Number | Product Code | Description |
+        | --- | --- | --- |
+        | 530000000001 | pln_postpaid | Success Transaction |
+        | 53000000000 | pln_postpaid | Failed Transaction |
+      parameters:
+        - in: body
+          name: body
+          required: true
+          description: for inquire transaction.
+          schema:
+            $ref: '#/definitions/RequestInquire'
+      responses:
+        200:
+          description: |
+            List of Kraken Product
+          schema:
+            $ref: '#/definitions/ResponseInquire'
+            
+  /api/v1/transactions/payments/pln_postpaid.json:
+    post:
+      consumes:
+        - application/json
+      tags:
+        - PLN Postpaid
+      summary: Create Transaction PLN Postpaid.
+      description: |
+        This endpoint is used to create transaction in Paprika Billers and formula inquire is <br/> `hash('sha256', sprintf('%s%s%s%s', $pubKey, $privKey, $customerNum, $refId))`
+
+        | Customer Number | Product Code | Description |
+        | --- | --- | --- |
+        | 530000000001 | pln_postpaid | Success Transaction |
+        | 53000000000 | pln_postpaid | Failed Transaction |
+      parameters:
+        - in: body
+          name: body
+          required: true
+          description: for inquire transaction.
+          schema:
+            $ref: '#/definitions/RequestInquire'
+      responses:
+        200:
+          description: |
+            List of Kraken Product
+          schema:
+            $ref: '#/definitions/ResponseTransaction'
+
+  /api/v1/transactions/transaction/pln_postpaid/{ref_id}.json:
+    get:
+      consumes:
+        - application/json
+      tags:
+        - PLN Postpaid
+      summary: Detail Transaction PLN Postpaid.
+      description: |
+        formula  inquire is `hash('sha256', sprintf('%s%s%s', $pubKey, $privKey, $refId))` on php
+      parameters:
+        - in: query
+          name: signature
+          type: "string"
+          required: true
+          description: for signature detail transaction.
+        - name: ref_id
+          type: string
+          description: ref id transaction.
+          in: path
+          required: true
+      responses:
+        200:
+          description: |
+            List of Kraken Product
+          schema:
+            $ref: '#/definitions/ResponseDetailTransaction'
+  #END PLN POSTPAID
+
+  #Gas Negara (PGN)
+  /api/v1/transactions/inquiries/pgn.json:
+    post:
+      consumes:
+        - application/json
+      tags:
+        - Gas Negara (PGN)
+      summary: Inquiry Transaction Gas Negara (PGN).
+      description: |
+        This endpoint is used to create transaction in Paprika Billers and formula inquire is <br/> `hash("sha256", sprintf("%s%s%s", $pubKey, $privKey, $customerNum))`
+
+        | Customer Number | Product Code | Description |
+        | --- | --- | --- |
+        | 0110014601 | pgn | Success Transaction |
+        | 011001460 | pgn | Failed Transaction |
+      parameters:
+        - in: body
+          name: body
+          required: true
+          description: for inquire transaction.
+          schema:
+            $ref: '#/definitions/RequestInquire'
+      responses:
+        200:
+          description: |
+            List of Kraken Product
+          schema:
+            $ref: '#/definitions/ResponseInquire'
+            
+  /api/v1/transactions/payments/pgn.json:
+    post:
+      consumes:
+        - application/json
+      tags:
+        - Gas Negara (PGN)
+      summary: Create Transaction Gas Negara (PGN).
+      description: |
+        This endpoint is used to create transaction in Paprika Billers and formula inquire is <br/> `hash('sha256', sprintf('%s%s%s%s', $pubKey, $privKey, $customerNum, $refId))`
+
+        | Customer Number | Product Code | Description |
+        | --- | --- | --- |
+        | 0110014601 | pgn | Success Transaction |
+        | 011001460 | pgn | Failed Transaction |
+      parameters:
+        - in: body
+          name: body
+          required: true
+          description: for inquire transaction.
+          schema:
+            $ref: '#/definitions/RequestInquire'
+      responses:
+        200:
+          description: |
+            List of Kraken Product
+          schema:
+            $ref: '#/definitions/ResponseTransaction'
+
+  /api/v1/transactions/transaction/pgn/{ref_id}.json:
+    get:
+      consumes:
+        - application/json
+      tags:
+        - Gas Negara (PGN)
+      summary: Detail Transaction Gas Negara (PGN).
+      description: |
+        formula  inquire is `hash('sha256', sprintf('%s%s%s', $pubKey, $privKey, $refId))` on php
+      parameters:
+        - in: query
+          name: signature
+          type: "string"
+          required: true
+          description: for signature detail transaction.
+        - name: ref_id
+          type: string
+          description: ref id transaction.
+          in: path
+          required: true
+      responses:
+        200:
+          description: |
+            List of Kraken Product
+          schema:
+            $ref: '#/definitions/ResponseDetailTransaction'
+  #END Gas Negara (PGN)
+
+  #PDAM
+  /api/v1/transactions/inquiries/pdam.json:
+    post:
+      consumes:
+        - application/json
+      tags:
+        - PDAM
+      summary: Inquiry Transaction PDAM.
+      description: |
+        This endpoint is used to create transaction in Paprika Billers and formula inquire is <br/> `hash("sha256", sprintf("%s%s%s", $pubKey, $privKey, $customerNum))`
+
+        | Customer Number | Product Code | Description |
+        | --- | --- | --- |
+        | 10202001 | pdam_kab_kubu | Success Transaction |
+        | 1020200 | pdam_kab_kubu | Failed Transaction |
+      parameters:
+        - in: body
+          name: body
+          required: true
+          description: for inquire transaction.
+          schema:
+            $ref: '#/definitions/RequestInquire'
+      responses:
+        200:
+          description: |
+            List of Kraken Product
+          schema:
+            $ref: '#/definitions/ResponseInquire'
+            
+  /api/v1/transactions/payments/pdam.json:
+    post:
+      consumes:
+        - application/json
+      tags:
+        - PDAM
+      summary: Create Transaction PDAM.
+      description: |
+        This endpoint is used to create transaction in Paprika Billers and formula inquire is <br/> `hash('sha256', sprintf('%s%s%s%s', $pubKey, $privKey, $customerNum, $refId))`
+
+        | Customer Number | Product Code | Description |
+        | --- | --- | --- |
+        | 10202001 | pdam_kab_kubu | Success Transaction |
+        | 1020200 | pdam_kab_kubu | Failed Transaction |
+      parameters:
+        - in: body
+          name: body
+          required: true
+          description: for inquire transaction.
+          schema:
+            $ref: '#/definitions/RequestInquire'
+      responses:
+        200:
+          description: |
+            List of Kraken Product
+          schema:
+            $ref: '#/definitions/ResponseTransaction'
+
+  /api/v1/transactions/transaction/pdam/{ref_id}.json:
+    get:
+      consumes:
+        - application/json
+      tags:
+        - PDAM
+      summary: Detail Transaction PDAM.
+      description: |
+        formula  inquire is `hash('sha256', sprintf('%s%s%s', $pubKey, $privKey, $refId))` on php
+      parameters:
+        - in: query
+          name: signature
+          type: "string"
+          required: true
+          description: for signature detail transaction.
+        - name: ref_id
+          type: string
+          description: ref id transaction.
+          in: path
+          required: true
+      responses:
+        200:
+          description: |
+            List of Kraken Product
+          schema:
+            $ref: '#/definitions/ResponseDetailTransaction'
+  #END PDAM
+
+  #Telkom Postpaid
+  /api/v1/transactions/inquiries/telkom_postpaid.json:
+    post:
+      consumes:
+        - application/json
+      tags:
+        - Telkom Postpaid
+      summary: Inquiry Transaction Telkom Postpaid.
+      description: |
+        This endpoint is used to create transaction in Paprika Billers and formula inquire is <br/> `hash("sha256", sprintf("%s%s%s", $pubKey, $privKey, $customerNum))`
+
+        | Customer Number | Product Code | Description |
+        | --- | --- | --- |
+        | 6391601201 | telkom_postpaid | Success Transaction |
+        | 639160120 | telkom_postpaid | Failed Transaction |
+      parameters:
+        - in: body
+          name: body
+          required: true
+          description: for inquire transaction.
+          schema:
+            $ref: '#/definitions/RequestInquire'
+      responses:
+        200:
+          description: |
+            List of Kraken Product
+          schema:
+            $ref: '#/definitions/ResponseInquire'
+            
+  /api/v1/transactions/payments/telkom_postpaid.json:
+    post:
+      consumes:
+        - application/json
+      tags:
+        - Telkom Postpaid
+      summary: Create Transaction Telkom Postpaid.
+      description: |
+        This endpoint is used to create transaction in Paprika Billers and formula inquire is <br/> `hash('sha256', sprintf('%s%s%s%s', $pubKey, $privKey, $customerNum, $refId))`
+
+        | Customer Number | Product Code | Description |
+        | --- | --- | --- |
+        | 6391601201 | telkom_postpaid | Success Transaction |
+        | 639160120 | telkom_postpaid | Failed Transaction |
+      parameters:
+        - in: body
+          name: body
+          required: true
+          description: for inquire transaction.
+          schema:
+            $ref: '#/definitions/RequestInquire'
+      responses:
+        200:
+          description: |
+            List of Kraken Product
+          schema:
+            $ref: '#/definitions/ResponseTransaction'
+
+  /api/v1/transactions/transaction/telkom_postpaid/{ref_id}.json:
+    get:
+      consumes:
+        - application/json
+      tags:
+        - Telkom Postpaid
+      summary: Detail Transaction Telkom Postpaid.
+      description: |
+        formula  inquire is `hash('sha256', sprintf('%s%s%s', $pubKey, $privKey, $refId))` on php
+      parameters:
+        - in: query
+          name: signature
+          type: "string"
+          required: true
+          description: for signature detail transaction.
+        - name: ref_id
+          type: string
+          description: ref id transaction.
+          in: path
+          required: true
+      responses:
+        200:
+          description: |
+            List of Kraken Product
+          schema:
+            $ref: '#/definitions/ResponseDetailTransaction'
+  #END Telkom Postpaid
+
+  #Pulsa
+  /api/v1/transactions/inquiries/pulsa.json:
+    post:
+      consumes:
+        - application/json
+      tags:
+        - Pulsa
+      summary: Inquiry Transaction Pulsa.
+      description: |
+        This endpoint is used to create transaction in Paprika Billers and formula inquire is <br/> `hash("sha256", sprintf("%s%s%s", $pubKey, $privKey, $customerNum))`
+
+        | Customer Number | Product Code | Description |
+        | --- | --- | --- |
+        | 082161505577 | pulsa_xl_25000 | Success Transaction |
+        | 08216150557 | pulsa_xl_25000 | Failed Transaction |
+      parameters:
+        - in: body
+          name: body
+          required: true
+          description: for inquire transaction.
+          schema:
+            $ref: '#/definitions/RequestInquire'
+      responses:
+        200:
+          description: |
+            List of Kraken Product
+          schema:
+            $ref: '#/definitions/ResponseInquire'
+            
+  /api/v1/transactions/payments/pulsa.json:
+    post:
+      consumes:
+        - application/json
+      tags:
+        - Pulsa
+      summary: Create Transaction Pulsa.
+      description: |
+        This endpoint is used to create transaction in Paprika Billers and formula inquire is <br/> `hash('sha256', sprintf('%s%s%s%s', $pubKey, $privKey, $customerNum, $refId))`
+
+        | Customer Number | Product Code | Description |
+        | --- | --- | --- |
+        | 082161505577 | pulsa_xl_25000 | Success Transaction |
+        | 08216150557 | pulsa_xl_25000 | Failed Transaction |
+      parameters:
+        - in: body
+          name: body
+          required: true
+          description: for inquire transaction.
+          schema:
+            $ref: '#/definitions/RequestInquire'
+      responses:
+        200:
+          description: |
+            List of Kraken Product
+          schema:
+            $ref: '#/definitions/ResponseTransaction'
+
+  /api/v1/transactions/transaction/pulsa/{ref_id}.json:
+    get:
+      consumes:
+        - application/json
+      tags:
+        - Pulsa
+      summary: Detail Transaction Pulsa.
+      description: |
+        formula  inquire is `hash('sha256', sprintf('%s%s%s', $pubKey, $privKey, $refId))` on php
+      parameters:
+        - in: query
+          name: signature
+          type: "string"
+          required: true
+          description: for signature detail transaction.
+        - name: ref_id
+          type: string
+          description: ref id transaction.
+          in: path
+          required: true
+      responses:
+        200:
+          description: |
+            List of Kraken Product
+          schema:
+            $ref: '#/definitions/ResponseDetailTransaction'
+  #END Pulsa
+
+  #Game
+  /api/v1/transactions/inquiries/game.json:
+    post:
+      consumes:
+        - application/json
+      tags:
+        - Game
+      summary: Inquiry Transaction Game.
+      description: |
+        This endpoint is used to create transaction in Paprika Billers and formula inquire is <br/> `hash("sha256", sprintf("%s%s%s", $pubKey, $privKey, $customerNum))`
+
+        | Customer Number | Product Code | Description |
+        | --- | --- | --- |
+        | 082161505577 | game_garena_10000 | Success Transaction |
+        | 08216150557 | game_garena_10000 | Failed Transaction |
+      parameters:
+        - in: body
+          name: body
+          required: true
+          description: for inquire transaction.
+          schema:
+            $ref: '#/definitions/RequestInquire'
+      responses:
+        200:
+          description: |
+            List of Kraken Product
+          schema:
+            $ref: '#/definitions/ResponseInquire'
+            
+  /api/v1/transactions/payments/game.json:
+    post:
+      consumes:
+        - application/json
+      tags:
+        - Game
+      summary: Create Transaction Game.
+      description: |
+        This endpoint is used to create transaction in Paprika Billers and formula inquire is <br/> `hash('sha256', sprintf('%s%s%s%s', $pubKey, $privKey, $customerNum, $refId))`
+
+        | Customer Number | Product Code | Description |
+        | --- | --- | --- |
+        | 082161505577 | game_garena_10000 | Success Transaction |
+        | 08216150557 | game_garena_10000 | Failed Transaction |
+      parameters:
+        - in: body
+          name: body
+          required: true
+          description: for inquire transaction.
+          schema:
+            $ref: '#/definitions/RequestInquire'
+      responses:
+        200:
+          description: |
+            List of Kraken Product
+          schema:
+            $ref: '#/definitions/ResponseTransaction'
+
+  /api/v1/transactions/transaction/game/{ref_id}.json:
+    get:
+      consumes:
+        - application/json
+      tags:
+        - Game
+      summary: Detail Transaction Game.
+      description: |
+        formula  inquire is `hash('sha256', sprintf('%s%s%s', $pubKey, $privKey, $refId))` on php
+      parameters:
+        - in: query
+          name: signature
+          type: "string"
+          required: true
+          description: for signature detail transaction.
+        - name: ref_id
+          type: string
+          description: ref id transaction.
+          in: path
+          required: true
+      responses:
+        200:
+          description: |
+            List of Kraken Product
+          schema:
+            $ref: '#/definitions/ResponseDetailTransaction'
+  #END Game
+
+
+parameters:
+  MerchantKey:
+    name: X-Merchant-Key
+    in: header
+    description: X-Merchant-Key Description
+    required: true
+    type: string
+    format: string
+    default: clientKey
+    
+definitions:
+  RequestInquire:
+    type: "object"
+    properties:
+      signature:
+        type: "string"
+      product_code:
+        type: "string"
+      customer_number:
+        type: "string"
+      ref_id:
+        type: "string"
+  ResponseInquire:
+    type: "object"
+    properties:
+      status_code:
+        type: "integer"
+        example: 200
+      status_message:
+        type: "string"
+      product_code:
+        type: "string"
+      ref_id:
+        type: "string"
+      customer_number:
+        type: "string"
+      final_amount:
+        type: "integer"
+      customer_name: 
+        type: "string"
+      amount: 
+        type: "integer"
+      admin_fees: 
+        type: "integer"
+      inquiry_id:
+        type: "integer"
+        example: 1
+        
+  ResponseTransaction:
+    type: "object"
+    properties:
+      status_code:
+        type: "integer"
+        example: 200
+      status_message:
+        type: "string"
+      transaction_id:
+        type: "string"
+      transaction_status:
+        type: "string"
+      datetime:
+        type: "string"
+      product_code:
+        type: "string"
+      ref_id:
+        type: "string"
+      customer_number:
+        type: "string"
+      final_amount:
+        type: "integer"
+      customer_name: 
+        type: "string"
+      amount: 
+        type: "integer"
+      admin_fees: 
+        type: "integer"
+
+  ResponseDetailTransaction:
+    type: "object"
+    properties:
+      signature: 
+        type: "string"
+      ref_id: 
+        type: "string"
+      data:
+        type: "object"
+        properties:
+          status_code:
+            type: "integer"
+            example: 200
+          status_message:
+            type: "string"
+          transaction_id:
+            type: "string"
+          transaction_status:
+            type: "string"
+          datetime:
+            type: "string"
+          product_code:
+            type: "string"
+          final_amount:
+            type: "integer"
+          customer_name: 
+            type: "string"
+          amount: 
+            type: "integer"
+          admin_fees: 
+            type: "integer"

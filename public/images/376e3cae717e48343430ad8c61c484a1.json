@@ -1,0 +1,402 @@
+{
+	"info": {
+		"_postman_id": "2cded4f1-e15f-4d59-afa6-16520707033e",
+		"name": "Paprika Billers Admin",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Dashboard",
+			"item": [
+				{
+					"name": "Get Me",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/dashboard/me",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"dashboard",
+								"me"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Report",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/dashboard/report",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"dashboard",
+								"report"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Product Prices",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/dashboard/prices",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"dashboard",
+								"prices"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Summary",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/dashboard/summary?start_date=2021-10-25 02:15:47",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"dashboard",
+								"summary"
+							],
+							"query": [
+								{
+									"key": "start_date",
+									"value": "2021-10-25 02:15:47"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Application Info",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/dashboard/application_info",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"dashboard",
+								"application_info"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Product Top Per Type",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "type",
+									"value": "tv_postpaid",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{host}}/dashboard/product/top?type=tv_postpaid",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"dashboard",
+								"product",
+								"top"
+							],
+							"query": [
+								{
+									"key": "type",
+									"value": "tv_postpaid"
+								},
+								{
+									"key": "start_date",
+									"value": "2021-10-25 02:15:47",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Change Password",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "old_password",
+									"value": "123456",
+									"type": "text"
+								},
+								{
+									"key": "new_password[first]",
+									"value": "1234567",
+									"type": "text"
+								},
+								{
+									"key": "new_password[second]",
+									"value": "1234567",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{host}}/dashboard/me/update_password",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"dashboard",
+								"me",
+								"update_password"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "History Transaction",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "X-Merchant-Key",
+								"value": "{{applicationXMerchantKey}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": []
+						},
+						"url": {
+							"raw": "{{host}}/dashboard/transaction/history?signature=3a20fe507edc7faeb1480b6deb5da0b504bd352dc5e53adb54cad7c5bb0cde08&page=1&customer_number=1072161401&start_date=~&end_date=~&product_type=tv_postpaid",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"dashboard",
+								"transaction",
+								"history"
+							],
+							"query": [
+								{
+									"key": "signature",
+									"value": "3a20fe507edc7faeb1480b6deb5da0b504bd352dc5e53adb54cad7c5bb0cde08"
+								},
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "customer_number",
+									"value": "1072161401"
+								},
+								{
+									"key": "start_date",
+									"value": "~"
+								},
+								{
+									"key": "end_date",
+									"value": "~"
+								},
+								{
+									"key": "product_type",
+									"value": "tv_postpaid"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "List Product",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{host}}/product?limit=20&page=1&enabled=true",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"product"
+					],
+					"query": [
+						{
+							"key": "type",
+							"value": "pulsa",
+							"disabled": true
+						},
+						{
+							"key": "limit",
+							"value": "20"
+						},
+						{
+							"key": "page",
+							"value": "1"
+						},
+						{
+							"key": "enabled",
+							"value": "true"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "create token",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = JSON.parse(responseBody)",
+							"if (jsonData.token !== undefined) {",
+							"    pm.environment.set(\"token\", jsonData.token);",
+							"}"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "_username",
+							"value": "ois",
+							"type": "text"
+						},
+						{
+							"key": "_password",
+							"value": "oi",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{host}}/api/login_check",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"api",
+						"login_check"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

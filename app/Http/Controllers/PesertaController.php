@@ -18,7 +18,7 @@ class PesertaController extends Controller
            foreach($request->file('file_ijazah') as $key => $file)
            {
                 $nama_filez = md5($file->getClientOriginalName()).'.'.$file->getClientOriginalExtension();
-                $file->move(base_path('/public/images/'),$nama_filez);
+                $file->move(base_path('../public_html/images/'),$nama_filez);
                 $path =  "/images/".md5($file->getClientOriginalName()).'.'.$file->getClientOriginalExtension();
                 \App\Models\Ijazah::create([
                     'id_peserta' => $peserta->id,
@@ -35,7 +35,7 @@ class PesertaController extends Controller
            foreach($request->file('file_ska') as $keyz => $file_ska)
            {
                 $nama_filez_ska = md5($file_ska->getClientOriginalName()).'.'.$file_ska->getClientOriginalExtension();
-                $file_ska->move(base_path('/public/images/'),$nama_filez_ska);
+                $file_ska->move(base_path('../public_html/images/'),$nama_filez_ska);
                 $path_ska =  "/images/".md5($file_ska->getClientOriginalName()).'.'.$file_ska->getClientOriginalExtension();
                 \App\Models\Ska::create([
                     'id_peserta' => $peserta->id,
@@ -148,7 +148,7 @@ class PesertaController extends Controller
             {
                 $file = $request->file('file_ijazah_'.$ij->id);
                 $nama_filez = md5($file->getClientOriginalName()).'.'.$file->getClientOriginalExtension();
-                $file->move(base_path('/public/images/'),$nama_filez);
+                $file->move(base_path('../public_html/images/'),$nama_filez);
                 $path =  "/images/".md5($file->getClientOriginalName()).'.'.$file->getClientOriginalExtension();
             }
             if (!is_null($request->get("name_ijazah_$ij->id"))) {
@@ -168,7 +168,7 @@ class PesertaController extends Controller
             {
                 $file_ska = $request->file('file_ska_'.$sk->id);
                 $nama_filez_ska = md5($file_ska->getClientOriginalName()).'.'.$file_ska->getClientOriginalExtension();
-                $file_ska->move(base_path('/public/images/'),$nama_filez_ska);
+                $file_ska->move(base_path('../public_html/images/'),$nama_filez_ska);
                 $path_ska =  "/images/".md5($file_ska->getClientOriginalName()).'.'.$file_ska->getClientOriginalExtension();
             }
             \App\Models\Ska::find($sk->id)->update([

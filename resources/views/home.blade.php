@@ -35,7 +35,7 @@
             <div class="card-body">
                 <h3 class="card-title text-white">Pengguna</h3>
                 <div class="d-inline-block">
-                    <h2 class="text-white">{{$penguna}}</h2>
+                    <h2 class="text-white">{{$user}}</h2>
                 </div>
                 <span class="float-right display-5 opacity-5"><i class="fa fa-users"></i></span>
             </div>

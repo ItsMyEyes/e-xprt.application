@@ -9,7 +9,7 @@ class Notification extends Model
 {
     use HasFactory;
     protected $table = 'notification';
-    protected $fillable = ['id_peserta','text','id_tender','status'];
+    protected $fillable = ['id_peserta','text','id_tender','status','to'];
 
     public function tender()
     {

@@ -13,7 +13,7 @@
             <div class="card-body">
                 <h3 class="card-title text-white">Tender</h3>
                 <div class="d-inline-block">
-                    <h2 class="text-white">4565</h2>
+                    <h2 class="text-white">{{$tender}}</h2>
                 </div>
                 <span class="float-right display-5 opacity-5"><i class="fa fa-building"></i></span>
             </div>
@@ -24,7 +24,7 @@
             <div class="card-body">
                 <h3 class="card-title text-white">Jumlah Tenaga Ahli</h3>
                 <div class="d-inline-block">
-                    <h2 class="text-white">8541</h2>
+                    <h2 class="text-white">{{$tenaga}}</h2>
                 </div>
                 <span class="float-right display-5 opacity-5"><i class="fa fa-user"></i></span>
             </div>
@@ -35,7 +35,7 @@
             <div class="card-body">
                 <h3 class="card-title text-white">Pengguna</h3>
                 <div class="d-inline-block">
-                    <h2 class="text-white">4565</h2>
+                    <h2 class="text-white">{{$penguna}}</h2>
                 </div>
                 <span class="float-right display-5 opacity-5"><i class="fa fa-users"></i></span>
             </div>
@@ -46,7 +46,7 @@
             <div class="card-body">
                 <h3 class="card-title text-white">Notifikasi</h3>
                 <div class="d-inline-block">
-                    <h2 class="text-white">99</h2>
+                    <h2 class="text-white">{{$notifikasi}}</h2>
                 </div>
                 <span class="float-right display-5 opacity-5"><i class="mdi mdi-bell-outline"></i></span>
             </div>

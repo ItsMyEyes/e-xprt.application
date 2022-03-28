@@ -48,6 +48,7 @@ class TenderController extends Controller
         ]);
 
         Tender::create($request->only(['nama_tender','nama_perusahaan','divis_count']));
+        Session::flash('success', 'Berhasil membuat Tender');
         return redirect()->route('tender.index');
     }
 
@@ -91,6 +92,7 @@ class TenderController extends Controller
         ]);
 
         Tender::find($tender)->update($request->only(['nama_tender','nama_perusahaan','divis_count','status']));
+        Session::flash('success', 'Berhasil merubah Tender');
         return redirect()->route('tender.index');
     }
 
@@ -144,6 +146,7 @@ class TenderController extends Controller
         }
         $peserta = Peserta::find($request->id_peserta);
         $type =  auth()->user()->role == 'hc' ? 'pemasaran' : 'hc';
+        Session::flash('success', 'Berhasil mengirim komentar ke hc');
         Peserta::sendWebNotification("Permintaan perubahan peserta dengan nama {$peserta->nama}", $type);
         return redirect()->back();
     }
@@ -169,6 +172,8 @@ class TenderController extends Controller
                 'divisi' => request()->divisi
             ]);
         }
+        
+        Session::flash('success', 'Berhasil memilih Tenaga Ahli');
         return redirect()->route('tender.tenagaAhli.show', $tender->id);
     }
 

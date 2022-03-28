@@ -47,10 +47,11 @@
         <div class="nav-header">
             <div class="brand-logo">
                 <a href="{{ route('home') }}">
-                    <b class="logo-abbr"><img src="/images/logo.png" alt=""> </b>
-                    <span class="logo-compact"><img src="/images/logo-compact.png" alt=""></span>
+                    <b class="logo-abbr">Kuddinges </b>
+                    {{-- <span class="logo-compact"><img src="/images/logo-compact.png" alt=""></span> --}}
                     <span class="brand-title">
-                        <img src="/images/logo-text.png" alt="">
+                        <h3 style="color: white; text-transform: uppercase">Kuddinges</h3>
+                        {{-- <img src="/images/logo-text.png" alt=""> --}}
                     </span>
                 </a>
             </div>

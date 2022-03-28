@@ -38,4 +38,4 @@ Route::get('/push-notificaiton', [WebNotificationController::class, 'index'])->n
 Route::post('/store-token', [WebNotificationController::class, 'storeToken'])->name('store.token');
 
 Route::resource('user', UserController::class);
-Route::get('/user/{id}', [UserController::class, 'destroy'])->name('user.del');
+Route::get('/userz/{id}', [UserController::class, 'destroy'])->name('user.del');

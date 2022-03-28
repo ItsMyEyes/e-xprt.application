@@ -6,7 +6,7 @@
         <div class="card">
             <div class="card-body">
                 <h4 class="card-title">
-                    <h3 class="pull-left">User management</h3>
+                    <h3 class="pull-left">Mengelola Pengguna</h3>
                     <a href="{{ route('user.create') }}" class="btn btn-primary btn-md pull-right"><i class="fa fa-plus"></i></a>
                 </h4>
                 <div class="table-responsive">

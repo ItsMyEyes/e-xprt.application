@@ -7,6 +7,7 @@ use App\Models\Peserta;
 use App\Models\Tender;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
 
 class PesertaController extends Controller
 {
@@ -93,6 +94,7 @@ class PesertaController extends Controller
             'tanggal_lahir' => $request->tgl_lahir,
         ]);
         $this->upload_ijazah($request, $peserta);
+        Session::flash('success', 'Berhasil menambahkan Tenaga Ahli');
         
         return redirect()->route('tenagaAhli.index');
     }
@@ -184,7 +186,7 @@ class PesertaController extends Controller
             'tempat_lahir' => $request->tempat_lahir,
             'tanggal_lahir' => $request->tgl_lahir,
         ]);
-        
+        Session::flash('success', 'Berhasil merubah Tenaga Ahli');
         return redirect()->route('tenagaAhli.index');
     }
 
@@ -221,7 +223,8 @@ class PesertaController extends Controller
             'id_tender' => $notif->id_tender,
             'to' => 'pemasaran'
         ]);
-        
+
+        Session::flash('success', 'Berhasil mengubah status');
         return back();
     }
 

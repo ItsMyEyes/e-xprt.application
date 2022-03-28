@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
 
 class UserController extends Controller
 {
@@ -50,6 +51,7 @@ class UserController extends Controller
             'role' => $request->role,
         ]);
 
+        Session::flash('success', 'Berhasil membuat user');
         return redirect()->route('user.index');
     }
 
@@ -105,7 +107,7 @@ class UserController extends Controller
                 'role' => $request->role,
             ]);
         }
-
+        Session::flash('success', 'Berhasil merubah user');
         return redirect()->route('user.index');
     }
 
@@ -118,6 +120,7 @@ class UserController extends Controller
     public function destroy($id)
     {
         User::find($id)->delete();
+        Session::flash('success', 'Berhasil menghapus user');
         return redirect()->route('user.index');
     }
 }

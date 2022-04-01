@@ -76,7 +76,7 @@
                         @php
                             $data = \App\Models\Notification::where('to',auth()->user()->role)->orderBy('id','asc')->where('status','not_clear')->limit(5)->get();    
                         @endphp
-                        <li class="icons dropdown"><a href="/javascript:void(0)" data-toggle="dropdown">
+                        <li class="icons dropdown"><a href="/" data-toggle="dropdown">
                                 <i class="mdi mdi-bell-outline"></i>
                                 <span class="badge badge-pill gradient-2 badge-primary">{{ count($data) }}</span>
                             </a>
@@ -104,7 +104,7 @@
                             </div>
                         </li>
                         <li class="icons dropdown d-none d-md-flex">
-                            <a href="/javascript:void(0)" class="log-user"  data-toggle="dropdown">
+                            <a href="/" class="log-user"  data-toggle="dropdown">
                                 <span>{{ strtoupper(auth()->user()->name) }} ( {{ auth()->user()->role }} ) </span>
                             </a>
                         </li>
@@ -188,7 +188,7 @@
                     <ol class="breadcrumb">
                         @hasSection ('breadcrumb')
                             <li class="breadcrumb-item"><a href="javascript:history.back()">Back</a></li>
-                            <li class="breadcrumb-item active"><a href="/javascript:void(0)">@yield('breadcrumb')</a></li>
+                            <li class="breadcrumb-item active"><a href="/">@yield('breadcrumb')</a></li>
                         @endif
                     </ol>
                 </div>

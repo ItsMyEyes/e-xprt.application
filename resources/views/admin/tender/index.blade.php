@@ -13,6 +13,7 @@
                     <table class="table table-striped table-bordered zero-configuration">
                         <thead>
                             <tr>
+                                <th>No</th>
                                 <th>Nama Tender</th>
                                 <th>Nama Owner</th>
                                 <th>Divisi</th>
@@ -22,8 +23,12 @@
                             </tr>
                         </thead>
                         <tbody>
+                            @php
+                                $i = 1;
+                            @endphp
                             @foreach ($tender as $item)
                                 <tr>
+                                    <td>{{ $i++ }}</td>
                                     <td>{{ $item->nama_tender }}</td>
                                     <td>{{ $item->nama_perusahaan }}</td>
                                     <td>{{ $item->divis_count }}</td>

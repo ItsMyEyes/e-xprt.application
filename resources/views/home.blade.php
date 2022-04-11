@@ -8,8 +8,9 @@
 </div>
 
 <div class="row">
+    @if (auth()->user()->role == 'pemasaran')
     <div class="col-lg-3 col-sm-6">
-        <div class="card gradient-1">
+        <div class="card gradient-1" style="cursor: pointer;" onclick="window.location.href = '/tender'">
             <div class="card-body">
                 <h3 class="card-title text-white">Tender</h3>
                 <div class="d-inline-block">
@@ -19,10 +20,11 @@
             </div>
         </div>
     </div>
+    @endif
     <div class="col-lg-3 col-sm-6">
         <div class="card gradient-2">
             <div class="card-body">
-                <h3 class="card-title text-white">Jumlah Tenaga Ahli</h3>
+                <h3 class="card-title text-white" style="cursor: pointer;" onclick="window.location.href = '{{ auth()->user()->role == 'pemasaran' ? '/tenagaAhlis/showAll' : '/tenagaAhli' }}'">Jumlah Tenaga Ahli</h3>
                 <div class="d-inline-block">
                     <h2 class="text-white">{{$tenaga}}</h2>
                 </div>
@@ -30,8 +32,9 @@
             </div>
         </div>
     </div>
+    @if (auth()->user()->role == 'admin')
     <div class="col-lg-3 col-sm-6">
-        <div class="card gradient-3">
+        <div class="card gradient-3" style="cursor: pointer;" onclick="window.location.href = '/user'">
             <div class="card-body">
                 <h3 class="card-title text-white">Pengguna</h3>
                 <div class="d-inline-block">
@@ -41,6 +44,7 @@
             </div>
         </div>
     </div>
+    @endif
     <div class="col-lg-3 col-sm-6">
         <div class="card gradient-4">
             <div class="card-body">

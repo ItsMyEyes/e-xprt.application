@@ -30,7 +30,7 @@ class HomeController extends Controller
         $tender = Tender::count();
         $tenaga = Peserta::count();
         $user = User::count();
-        $notifikasi = Notification::where('to', auth()->user()->role)->count();
+        $notifikasi = Notification::where('to', auth()->user()->role)->where('status','!=','clear')->count();
         return view('home', compact('tender','tenaga','user','notifikasi'));
     }
 }

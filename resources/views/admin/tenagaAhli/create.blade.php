@@ -98,7 +98,7 @@
                                     <div class="col-xs-12 col-md-1 col-xl-2">
                                         <div class="form-group">
                                             <label for="">Berlaku sampai dengan</label>
-                                            <input type="text" class="form-control" name="berlaku[]">
+                                            <input type="date" class="form-control" name="berlaku[]">
                                         </div>
                                     </div>
                                     <div class="col-xs-12 col-md-3 col-xl-2">
@@ -189,7 +189,7 @@ $(function() {
         <div class="col-xs-12 col-md-1 col-xl-2">
             <div class="form-group">
                 <label for="">Berlaku sampai dengan</label>
-                <input type="text" class="form-control" name="berlaku[]">
+                <input type="date" class="form-control" name="berlaku[]">
             </div>
         </div>
         <div class="col-xs-12 col-md-3 col-xl-2">

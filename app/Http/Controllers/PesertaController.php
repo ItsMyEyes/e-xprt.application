@@ -40,7 +40,7 @@ class PesertaController extends Controller
                 \App\Models\Ska::create([
                     'id_peserta' => $peserta->id,
                     'file' => $path_ska,
-                    'nama' => $request->name_ska[$keyz],
+                    'nama' => $request->name_ska[$keyz] ?? '-',
                     'tingkat' => $request->tingkat_ska[$keyz],
                     'berlaku' => $request->berlaku[$keyz],
                     'klasifikasi' => $request->klasifikasi[$keyz],

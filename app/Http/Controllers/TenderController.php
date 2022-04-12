@@ -128,7 +128,7 @@ class TenderController extends Controller
 
     public function showPeserta()
     {
-        $peserta = Peserta::all();  
+        $peserta = Peserta::all();
         return view('admin.tender.tenagaAhli.showAll', compact('peserta'));
     }
 

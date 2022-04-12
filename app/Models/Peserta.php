@@ -122,11 +122,12 @@ class Peserta extends Model
 
     public function checkAvailableDelete()
     {
-        if (count($this->tender) < 1) {
-            return true;
-        }
+        return true;
+        // if (count($this->tender) < 1) {
+        //     return true;
+        // }
 
-        return false;
+        // return false;
     }
 
     public function sendWebNotification($body, $type = 'hc')

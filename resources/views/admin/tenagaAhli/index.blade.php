@@ -25,7 +25,7 @@
                         </div>
                         <div class="col-xs-12 col-md-6 col-xl-2">
                             <div class="form-group">
-                                <input type="text" class="form-control" name="tingkat_ska" value="{{ request()->get('tingkat_ska') }}" placeholder="Tingkat SKA">
+                                <input type="text" class="form-control" name="kode_ska" value="{{ request()->get('kode_ska') }}" placeholder="Kode Ska">
                             </div>
                         </div>
                         <div class="col-xs-12 col-md-6 col-xl-2">

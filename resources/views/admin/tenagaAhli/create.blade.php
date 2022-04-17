@@ -6,7 +6,7 @@
             <form action="{{ route('tenagaAhli.store') }}" method="POST" enctype="multipart/form-data" id="step-form-horizontal" class="step-form-horizontal">
                 @csrf
                 <div>
-                    <h4>Account Details</h4>
+                    <h4>Data Diri</h4>
                     <section>
                         <div class="row">
                             <div class="col-lg-6">
@@ -79,7 +79,7 @@
                                 <div class="row">
                                     <div class="col-xs-12 col-md-3 col-xl-2">
                                         <div class="form-group">
-                                            <label for="">Nama Dokumen</label>
+                                            <label for="">Kode</label>
                                             <input type="text" class="form-control" name="name_ska[]">
                                         </div>
                                     </div>
@@ -170,7 +170,7 @@ $(function() {
     $(`<div class="row remove_${z}" id="p_scents">
         <div class="col-xs-12 col-md-3 col-xl-2">
             <div class="form-group">
-                <label for="">Nama Dokumen</label>
+                <label for="">Kode</label>
                 <input type="text" class="form-control" name="name_ska[]">
             </div>
         </div>

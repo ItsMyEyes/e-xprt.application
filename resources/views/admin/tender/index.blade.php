@@ -36,9 +36,7 @@
                                     <td><span class="btn btn-{{ $item->getColour() }} btn-sm" style="cursor: text">{{ $item->status }}</span></td>
                                     <td>
                                         <a href="{{ route('tender.edit', $item->id) }}" class="btn btn-primary btn-sm"><i class="fa fa-edit"></i></a>
-                                        @if ($item->status === 'terbuat')
-                                            <a href="{{ route('tender.destroy', $item->id) }}" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></a>
-                                        @endif
+                                        <a href="{{ route('tender.destroy', $item->id) }}" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></a>
                                     </td>
                                 </tr>
                             @endforeach

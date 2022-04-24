@@ -168,7 +168,7 @@
                                         </div>
                                         <div class="col-xs-12 col-md-3 col-xl-2">
                                             <div class="form-group">
-                                                <label for="">Klasifikasi</label>
+                                                <label for="">Kualifikasi</label>
                                                 <input type="text" class="form-control" value="{{$item_ska->klasifikasi}}"  name="klasifikasi_{{$item_ska->id}}">
                                             </div>
                                         </div>
@@ -219,7 +219,7 @@
                                     </div>
                                     <div class="col-xs-12 col-md-3 col-xl-2">
                                         <div class="form-group">
-                                            <label for="">Klasifikasi</label>
+                                            <label for="">Kualifikasi</label>
                                             <input type="text" class="form-control" name="klasifikasi[]">
                                         </div>
                                     </div>
@@ -336,7 +336,7 @@ $(function() {
         </div>
         <div class="col-xs-12 col-md-3 col-xl-2">
             <div class="form-group">
-                <label for="">Klasifikasi</label>
+                <label for="">Kualifikasi</label>
                 <input type="text" class="form-control" name="klasifikasi[]">
             </div>
         </div>

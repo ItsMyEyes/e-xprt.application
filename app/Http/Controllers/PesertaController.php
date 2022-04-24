@@ -56,7 +56,7 @@ class PesertaController extends Controller
     public function index()
     {
         $peserta = Peserta::where('nama','like', '%'.request()->name.'%');
-        if (isset(request()->no_ktp)) $peserta->where('ktp', 'like', '%'.request()->no_ktp.'%');
+        if (isset(request()->ska)) $peserta->whereHas('ska', function($q){ $q->where('klasifikasi', 'like', '%'.request()->klasifikasi.'%'); });
         if (isset(request()->tingkat_ijazah)) $peserta->whereHas('ijazah', function($q){ $q->where('tingkat', 'like', '%'.request()->tingkat_ijazah.'%'); });
         if (isset(request()->kode_ska)) $peserta->whereHas('ska', function($q){ $q->where('nama', 'like', '%'.request()->kode_ska.'%'); });
         $peserta = $peserta->with(['ska','ijazah'])->get();

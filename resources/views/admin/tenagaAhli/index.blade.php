@@ -15,7 +15,7 @@
                         </div>
                         <div class="col-xs-12 col-md-6 col-xl-3">
                             <div class="form-group">
-                                <input type="text" class="form-control" name="no_ktp" value="{{ request()->get('no_ktp') }}" placeholder="No.KTP">
+                                <input type="text" class="form-control" name="kualifikasi" value="{{ request()->get('kualifikasi') }}" placeholder="Kualifikasi">
                             </div>
                         </div>
                         <div class="col-xs-12 col-md-6 col-xl-2">

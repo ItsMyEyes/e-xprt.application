@@ -70,7 +70,7 @@
                                     @if ($item->checkStatus())
                                         <td><span class="btn btn-success btn-sm" style="color: #fff;cursor: default">Aman</span></td>
                                         @else
-                                        <td><span class="btn btn-danger btn-sm" style="color: #fff;cursor: default">Tidak aman</span></td>
+                                        <td><span class="btn btn-danger btn-sm" style="color: #fff;cursor: default">Butuh perbaikan</span></td>
                                     @endif
                                     <td>
                                         <a href="{{ route('tenagaAhli.edit', $item->id) }}" class="btn btn-primary"><i class="fa fa-edit"></i></a>

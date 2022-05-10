@@ -67,7 +67,7 @@
                                     <td>
                                         <ul>
                                             @foreach ($item->ska as $ska)
-                                                <li>{{ $ska->masa_berlaku }}</li>
+                                                <ol>{{ $ska->berlaku }}</ol>
                                             @endforeach        
                                         </ul>    
                                     </td>

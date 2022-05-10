@@ -42,7 +42,7 @@
                                 <div class="row">
                                     <div class="col-xs-12 col-md-3 col-xl-3">
                                         <div class="form-group">
-                                            <label for="">Nama Dokumen</label>
+                                            <label for="">Bidang Studi</label>
                                             <input type="text" class="form-control" name="name_ijazah[]">
                                         </div>
                                     </div>
@@ -133,7 +133,7 @@ $(function() {
     $(`<div class="row remove_${i}" id="p_scents">
             <div class="col-xs-12 col-md-3 col-xl-3">
                 <div class="form-group">
-                    <label for="">Nama Dokumen</label>
+                    <label for="">Bidang Studi</label>
                     <input type="text" name="name_ijazah[]" class="form-control">
                 </div>
             </div>

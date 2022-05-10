@@ -46,7 +46,7 @@
                 <h2 class="card-title">Ijazah</h2>
                 <table class="table table-hover table-no-br">
                     <tr>
-                        <th>Nama Dokumen</th>
+                        <th>Bidang Studi</th>
                         <th>Tingkat</th>
                         <th>Tahun Lulus</th>
                         <th>Action</th>
@@ -71,7 +71,7 @@
                 <h2 class="card-title">SKA</h2>
                 <table class="table table-hover table-no-br">
                     <tr>
-                        <th>Nama Dokumen</th>
+                        <th>Bidang Studi</th>
                         <th>Tingkat</th>
                         <th>Berlaku sampai dengan</th>
                         <th>Klasifikasi</th>

@@ -53,7 +53,7 @@
                         <thead>
                             <tr>
                                 <th>Nama</th>
-                                <th>No.KTP</th>
+                                <th>Masa Berlaku Ska</th>
                                 <th>Ijazah</th>
                                 <th>SKA</th>
                                 <th>Status</th>
@@ -64,7 +64,13 @@
                             @foreach ($peserta as $item)
                                 <tr>
                                     <td><a href="{{ route('tenagaAhli.show', $item->id) }}" style="text-decoration: underline;color: blue">{{ $item->nama }}</a></td>
-                                    <td>{{ "******".substr($item->ktp, -3) }}</td>
+                                    <td>
+                                        <ul>
+                                            @foreach ($item->ska as $ska)
+                                                <li>{{ $ska->masa_berlaku }}</li>
+                                            @endforeach        
+                                        </ul>    
+                                    </td>
                                     <td>{{ $item->countIjazah() }}</td>
                                     <td>{{ $item->countSka() }}</td>
                                     @if ($item->checkStatus())

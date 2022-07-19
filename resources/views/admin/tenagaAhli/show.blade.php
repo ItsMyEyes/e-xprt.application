@@ -174,7 +174,7 @@
                                         </div>
                                         <div class="col-xs-12 col-md-3 col-xl-1">
                                             <div class="row">
-                                                @if ($key == $lastIdIj)
+                                                @if ($key2 == $lastIdIj)
                                                 <div class="col-lg-6">
                                                     <span class="btn btn-success btn-md mt-4" id="addScntz" style="margin-top: 50px"><i class="fa fa-plus"></i></span>
                                                 </div>

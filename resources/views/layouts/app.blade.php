@@ -188,7 +188,7 @@
                     <ol class="breadcrumb">
                         @hasSection ('breadcrumb')
                             <li class="breadcrumb-item"><a href="javascript:history.back()">Back</a></li>
-                            <li class="breadcrumb-item active"><a href="/">@yield('breadcrumb')</a></li>
+                            <li class="breadcrumb-item active"><a href="/"> ('breadcrumb')</a></li>
                         @endif
                     </ol>
                 </div>

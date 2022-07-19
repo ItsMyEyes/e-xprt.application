@@ -121,6 +121,7 @@ class PesertaController extends Controller
     {
         $peserta = Peserta::with(['ijazah','ska'])->find($peserta);
         $lastIdIj = $lastIdSka = 0;
+        $key = 0;
         if (!empty($peserta->ijazah)) foreach ($peserta->ijazah as $key => $ijazh) $lastIdIj = $key;
         if (!empty($peserta->ska)) foreach ($peserta->ska as $key => $ska) $lastIdSka = $key;
         return view('admin.tenagaAhli.show', compact('peserta','lastIdIj','lastIdSka'));

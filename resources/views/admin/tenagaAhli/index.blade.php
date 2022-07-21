@@ -77,12 +77,12 @@
                                         <td><span class="btn btn-success btn-sm" style="color: #fff;cursor: default">Aman</span></td>
                                         @else
                                         <td><span class="btn btn-danger btn-sm" style="color: #fff;cursor: default">Butuh perbaikan</span></td>
-                                    @endif
+                                    @endif.
                                     <td>
                                         <a href="{{ route('tenagaAhli.edit', $item->id) }}" class="btn btn-primary"><i class="fa fa-edit"></i></a>
-                                        @if ($item->checkAvailableDelete())
-                                            <a href="{{ route('tenagaAhli.del', $item->id) }}" class="btn btn-danger"><i class="fa fa-trash"></i></a>
-                                        @endif
+                                        {{-- @if ($item->checkAvailableDelete()) --}}
+                                        <a href="{{ route('tenagaAhli.del', $item->id) }}" class="btn btn-danger"><i class="fa fa-trash"></i></a>
+                                        {{-- @endif --}}
                                     </td>
                                 </tr>
                             @endforeach

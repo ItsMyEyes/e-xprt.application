@@ -95,15 +95,19 @@ class Peserta extends Model
             }
         }
 
-        foreach ($this->ska as $ska) {
-            if (date('Ymd', strtotime('now')) > date('Ymd', strtotime($ska->berlaku))) {
-                return false;
+        if ($this->countSka() > 0) {
+            foreach ($this->ska as $ska) {
+                if (date('Ymd', strtotime('now')) > date('Ymd', strtotime($ska->berlaku))) {
+                    return false;
+                }
             }
         }
 
-        foreach ($this->ijazah as $ijazah) {
-            if (date('Ymd', strtotime('now')) > date('Ymd', strtotime($ijazah->berlaku))) {
-                return false;
+        if ($this->countIjazah() > 0) {
+            foreach ($this->ijazah as $ijazah) {
+                if (date('Ymd', strtotime('now')) > date('Ymd', strtotime($ijazah->berlaku))) {
+                    return false;
+                }
             }
         }
         return true;

@@ -52,6 +52,7 @@
                     <table class="table table-striped table-bordered zero-configuration">
                         <thead>
                             <tr>
+                                <th>No</th>
                                 <th>Nama</th>
                                 <th>Masa Berlaku Ska</th>
                                 <th>Ijazah</th>
@@ -61,8 +62,12 @@
                             </tr>
                         </thead>
                         <tbody>
+                            @php
+                                $no = 1;
+                            @endphp
                             @foreach ($peserta as $item)
                                 <tr>
+                                    <td>{{ $no++ }}</td>
                                     <td><a href="{{ route('tenagaAhli.show', $item->id) }}" style="text-decoration: underline;color: blue">{{ $item->nama }}</a></td>
                                     <td>
                                         <ul>

@@ -78,11 +78,7 @@
                                     </td>
                                     <td>{{ $item->countIjazah() }}</td>
                                     <td>{{ $item->countSka() }}</td>
-                                    @if ($item->checkStatus())
-                                        <td><span class="btn btn-success btn-sm" style="color: #fff;cursor: default">Aman</span></td>
-                                        @else
-                                        <td><span class="btn btn-danger btn-sm" style="color: #fff;cursor: default">Butuh perbaikan</span></td>
-                                    @endif.
+                                <td><span class="btn btn-info btn-sm" style="color: #fff;cursor: default">{{$item->checkStatus()}}</span></td>
                                     <td>
                                         <a href="{{ route('tenagaAhli.edit', $item->id) }}" class="btn btn-primary"><i class="fa fa-edit"></i></a>
                                         {{-- @if ($item->checkAvailableDelete()) --}}

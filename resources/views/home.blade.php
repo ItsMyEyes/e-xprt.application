@@ -22,7 +22,7 @@
     </div>
     @endif
     <div class="col-lg-3 col-sm-6">
-        <div class="card gradient-2">
+        <div class="card gradient-2"  style="cursor: pointer;" onclick="window.location.href = '{{ auth()->user()->role == 'pemasaran' ? '/tenagaAhlis/showAll' : '/tenagaAhli' }}'">
             <div class="card-body">
                 <h3 class="card-title text-white" style="cursor: pointer;" onclick="window.location.href = '{{ auth()->user()->role == 'pemasaran' ? '/tenagaAhlis/showAll' : '/tenagaAhli' }}'">Jumlah Tenaga Ahli</h3>
                 <div class="d-inline-block">

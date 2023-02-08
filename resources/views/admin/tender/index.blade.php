@@ -37,6 +37,7 @@
                                     <td>
                                         <a href="{{ route('tender.edit', $item->id) }}" class="btn btn-primary btn-sm"><i class="fa fa-edit"></i></a>
                                         <a href="{{ route('tender.destroy', $item->id) }}" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></a>
+                                        <a href="/export/peserta/{{ $item->id }}/tender" class="btn btn-success btn-sm">Excel</a>
                                     </td>
                                 </tr>
                             @endforeach

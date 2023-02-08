@@ -50,6 +50,7 @@
                     <table class="table table-striped table-bordered zero-configuration">
                         <thead>
                             <tr>
+                                <th>No</th>
                                 <th>Nama</th>
                                 <th>No.KTP</th>
                                 <th>Ijazah</th>
@@ -58,9 +59,13 @@
                             </tr>
                         </thead>
                         <tbody>
+                            @php
+                             $i = 1;
+                            @endphp
                             @foreach ($peserta as $item)
                                 @if (!$item->checkChooseOnTender($tender->id))
                                 <tr>
+                                    <td>{{ $i++ }}</td>
                                     <td>{{ $item->nama }}</td>
                                     <td>{{ "******".substr($item->ktp, -3) }}</td>
                                     <td><span class="btn btn-primary" data-toggle="modal" data-target="#exampleModal-{{$item->id}}">Periksa ({{ $item->countIjazah() }})</span></td>

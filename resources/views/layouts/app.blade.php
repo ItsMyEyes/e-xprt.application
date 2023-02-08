@@ -89,7 +89,7 @@
                                     <ul>
                                         @foreach ($data as $item)
                                         <li>
-                                            <a href="#">
+                                            <a href="/tenagaAhli/{{$item->id_peserta}}/edit">
                                                 <span class="mr-3 avatar-icon bg-success-lighten-2"><i class="mdi mdi-bell-outline"></i></span>
                                                 <div class="notification-content">
                                                     <h6 class="notification-heading">Tenaga Ahli ({{ $item->tender->nama_tender }})</h6>

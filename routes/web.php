@@ -42,4 +42,5 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/userz/{id}', [UserController::class, 'destroy'])->name('user.del');
 
     Route::get('/export/peserta/{id}/tender', [PesertaController::class, 'exportPeserta']);
+    Route::get('/sendnotificaiton', [TenderController::class, 'sendNotifiToHc']);
 });

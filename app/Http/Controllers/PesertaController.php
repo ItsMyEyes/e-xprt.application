@@ -54,8 +54,8 @@ class PesertaController extends Controller
     public function index()
     {
         $peserta = Peserta::where('nama', 'like', '%' . request()->name . '%');
-        if (isset(request()->ska)) $peserta->whereHas('ska', function ($q) {
-            $q->where('klasifikasi', 'like', '%' . request()->klasifikasi . '%');
+        if (isset(request()->kualifikasi)) $peserta->whereHas('kualifikasi', function ($q) {
+            $q->where('kualifikasi', 'like', '%' . request()->kualifikasi . '%');
         });
         if (isset(request()->tingkat_ijazah)) $peserta->whereHas('ijazah', function ($q) {
             $q->where('tingkat', 'like', '%' . request()->tingkat_ijazah . '%');

@@ -44,10 +44,10 @@ class TenderController extends Controller
             'nama_tender' => 'required',
             'nama_perusahaan' => 'required',
             'divis_count' => 'required'
-            
+
         ]);
 
-        Tender::create($request->only(['nama_tender','nama_perusahaan','divis_count']));
+        Tender::create($request->only(['nama_tender', 'nama_perusahaan', 'divis_count']));
         Session::flash('success', 'Berhasil membuat Tender');
         return redirect()->route('tender.index');
     }
@@ -72,7 +72,7 @@ class TenderController extends Controller
     public function edit($tender)
     {
         $tender = Tender::find($tender);
-        return view('admin.tender.show',compact('tender'));
+        return view('admin.tender.show', compact('tender'));
     }
 
     /**
@@ -88,10 +88,10 @@ class TenderController extends Controller
             'nama_tender' => 'required',
             'nama_perusahaan' => 'required',
             'divis_count' => 'required',
-            
+
         ]);
 
-        Tender::find($tender)->update($request->only(['nama_tender','nama_perusahaan','divis_count','status']));
+        Tender::find($tender)->update($request->only(['nama_tender', 'nama_perusahaan', 'divis_count', 'status']));
         Session::flash('success', 'Berhasil merubah Tender');
         return redirect()->route('tender.index');
     }
@@ -111,24 +111,38 @@ class TenderController extends Controller
     public function pesertaIndex($tender)
     {
         $tender = Tender::find($tender);
-        $peserta = Peserta::where('nama','like', '%'.request()->name.'%');
-        if (isset(request()->no_ktp)) $peserta->where('ktp', 'like', '%'.request()->no_ktp.'%');
-        if (isset(request()->tingkat_ijazah)) $peserta->whereHas('ijazah', function($q){ $q->where('tingkat', request()->tingkat_ijazah); });
-        if (isset(request()->kode_ska)) $peserta->whereHas('ska', function($q){ $q->where('nama', 'like', '%'.request()->kode_ska.'%'); });
-        $peserta = $peserta->with(['ska','ijazah'])->get();
-        return view('admin.tender.tenagaAhli.index', compact('peserta','tender'));
+        $peserta = Peserta::where('nama', 'like', '%' . request()->name . '%');
+        if (isset(request()->no_ktp)) $peserta->where('ktp', 'like', '%' . request()->no_ktp . '%');
+        if (isset(request()->tingkat_ijazah)) $peserta->whereHas('ijazah', function ($q) {
+            $q->where('tingkat', request()->tingkat_ijazah);
+        });
+        if (isset(request()->kode_ska)) $peserta->whereHas('ska', function ($q) {
+            $q->where('nama', 'like', '%' . request()->kode_ska . '%');
+        });
+        $peserta = $peserta->with(['ska', 'ijazah'])->get();
+        return view('admin.tender.tenagaAhli.index', compact('peserta', 'tender'));
     }
 
     public function pesertaShow($tender)
     {
         $tender = Tender::find($tender);
-        $peserta = Peserta::all();  
-        return view('admin.tender.tenagaAhli.show', compact('tender','peserta'));
+        $peserta = Peserta::all();
+        return view('admin.tender.tenagaAhli.show', compact('tender', 'peserta'));
     }
 
     public function showPeserta()
     {
-        $peserta = Peserta::all();
+        $peserta = Peserta::where('nama', 'like', '%' . request()->name . '%');
+        if (isset(request()->ska)) $peserta->whereHas('ska', function ($q) {
+            $q->where('klasifikasi', 'like', '%' . request()->klasifikasi . '%');
+        });
+        if (isset(request()->tingkat_ijazah)) $peserta->whereHas('ijazah', function ($q) {
+            $q->where('tingkat', 'like', '%' . request()->tingkat_ijazah . '%');
+        });
+        if (isset(request()->kode_ska)) $peserta->whereHas('ska', function ($q) {
+            $q->where('nama', 'like', '%' . request()->kode_ska . '%');
+        });
+        $peserta = $peserta->with(['ska', 'ijazah'])->get();
         return view('admin.tender.tenagaAhli.showAll', compact('peserta'));
     }
 
@@ -140,9 +154,9 @@ class TenderController extends Controller
         ]);
         $check = Notification::where('id_peserta', $request->id_peserta)->where('id_tender', $request->id_tender)->first();
         if (isset($check) && !is_null($check) && !empty($check)) {
-            $check->update($request->only(['id_peserta','id_tender','text','status','to']));
+            $check->update($request->only(['id_peserta', 'id_tender', 'text', 'status', 'to']));
         } else {
-            $check = Notification::create($request->only(['id_peserta','id_tender','text','status','to']));
+            $check = Notification::create($request->only(['id_peserta', 'id_tender', 'text', 'status', 'to']));
         }
         $peserta = Peserta::find($request->id_peserta);
         $type =  auth()->user()->role == 'hc' ? 'pemasaran' : 'hc';
@@ -151,20 +165,38 @@ class TenderController extends Controller
         return redirect()->back();
     }
 
+    public function sendNotifiToHc(Request  $request)
+    {
+        $tender = Tender::find($request->id);
+        $type =  auth()->user()->role == 'hc' ? 'pemasaran' : 'hc';
+        $text = "Pemasaran telah menyusun Tenaga Ahli untuk {$tender->nama_tender}";
+        $request->merge([
+            'id_peserta' => 1,
+            'id_tender' => $tender->id,
+            'text' => $text,
+            'status' => 'not_clear',
+            'to' => $type
+        ]);
+        Notification::create($request->only(['id_peserta', 'id_tender', 'text', 'status', 'to']));
+        Session::flash('success', 'Berhasil mengirim komentar ke hc');
+        Peserta::sendWebNotification($text, $type);
+        return redirect()->back();
+    }
+
     public function choosePeserta($peserta, $tender)
     {
         $peserta = Peserta::find($peserta);
         $tender = Tender::find($tender);
         if (empty($peserta) && empty($tender)) {
-            Session::flash('error','Peserta dan tender tidak ditemukan');
+            Session::flash('error', 'Peserta dan tender tidak ditemukan');
         }
-        
+
         $check = PesertaTender::where([
             'id_peserta' => $peserta->id,
             'id_tender' => $tender->id
         ])->first();
         if (!empty($check)) {
-            Session::flash('error','Duplicate peserta');
+            Session::flash('error', 'Duplicate peserta');
         } else {
             PesertaTender::create([
                 'id_peserta' => $peserta->id,
@@ -172,7 +204,7 @@ class TenderController extends Controller
                 'divisi' => request()->divisi
             ]);
         }
-        
+
         Session::flash('success', 'Berhasil memilih Tenaga Ahli');
         return redirect()->route('tender.tenagaAhli.show', $tender->id);
     }
@@ -182,7 +214,7 @@ class TenderController extends Controller
         $peserta = Peserta::find($peserta);
         $tender = Tender::find($tender);
         if (empty($peserta) && empty($tender)) {
-            Session::flash('error','Peserta dan tender tidak ditemukan');
+            Session::flash('error', 'Peserta dan tender tidak ditemukan');
         }
         $check = PesertaTender::where([
             'id_peserta' => $peserta->id,

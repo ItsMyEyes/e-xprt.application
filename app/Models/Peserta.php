@@ -216,13 +216,7 @@ class Peserta extends Model
     public function sendWebNotification($body, $type = 'hc')
     {
         $url = 'https://fcm.googleapis.com/fcm/send';
-        if ($type == 'hc') {
-            $FcmToken = User::whereNotNull('device_key')->where('role', 'hc')->pluck('device_key')->all();
-        }
-        if ($type == 'pemasaran') {
-            $FcmToken = User::whereNotNull('device_key')->where('role', 'pemasaran')->pluck('device_key')->all();
-        }
-        // return $FcmToken;
+        $FcmToken = User::whereNotNull('device_key')->where('role', $type)->pluck('device_key')->all();
 
         $serverKey = 'AAAAmLnXpDU:APA91bG8kWF7FNqwOiJu60EnYZbMzOl5EGK3OaX-NUsgvuWAvt1rqYfCYBh1Uct-OhIAjLPCVgy0kWgFXo1RBmVhJRyqbGKQ08rbdr1yrylPBEng0yhewDYWdrpoB40gH0XKX3kfY4Nz';
 

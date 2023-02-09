@@ -72,12 +72,23 @@
                                     <td>
                                         <ul>
                                             @foreach ($item->ska as $ska)
-                                                <ol>{{ $ska->berlaku }}</ol>
+                                                <ol>{{ date('d - M - Y', strtotime($ska->berlaku)) }}</ol>
                                             @endforeach        
                                         </ul>    
                                     </td>
-                                    <td>{{ $item->countIjazah() }}</td>
-                                    <td>{{ $item->countSka() }}</td>
+                                    <td>
+                                        @if (count($item->ijazah) > 0)
+                                            @foreach ($item->ijazah as $ij)
+                                                <a href="#showPreview" onclick="changePreview('{{$ij->file}}', '{{$ij->nama}}')" data-toggle="modal" data-target="#showPreview" class="btn btn-success btn-sm" data-toggle="tooltip" data-placement="top" title="Lihat file"><i class="fa fa-file"></i></a>
+                                            @endforeach
+                                        @endif
+                                    </td>
+                                    <td>
+                                        @if (count($item->ska) > 0)
+                                            @foreach ($item->ska as $ska)
+                                                <a href="#showPreview" onclick="changePreview('{{$ska->file}}', '{{$ska->nama}}')" data-toggle="modal" data-target="#showPreview" class="btn btn-success btn-sm" data-toggle="tooltip" data-placement="top" title="Lihat file"><i class="fa fa-file"></i></a>
+                                            @endforeach
+                                        @endif</td>
                                 <td><span class="btn btn-info btn-sm" style="color: #fff;cursor: default">{{$item->checkStatus()}}</span></td>
                                     <td>
                                         <a href="{{ route('tenagaAhli.edit', $item->id) }}" class="btn btn-primary"><i class="fa fa-edit"></i></a>
@@ -94,4 +105,29 @@
         </div>
     </div>
 </div>
+<div class="modal fade" id="showPreview" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            </div>
+            <div class="modal-body">
+                <iframe src="" style="height: 550px; width: 450px" id="changeMe" frameborder="0"></iframe>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+@endsection
+@section('script')
+    <script>
+        function changePreview(p, name) {
+            if (p != null) $('#changeMe').attr('src', p)
+            $('#exampleModalLabel').text(name)
+        }
+    </script>
 @endsection

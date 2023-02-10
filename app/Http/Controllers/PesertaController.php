@@ -20,9 +20,13 @@ class PesertaController extends Controller
                 $nama_filez = md5($file->getClientOriginalName()) . '.' . $file->getClientOriginalExtension();
                 $file->move(base_path('../public_html/images/'), $nama_filez);
                 $path =  "/images/" . md5($file->getClientOriginalName()) . '.' . $file->getClientOriginalExtension();
+                $name = "-";
+                if ($request->name_ijazah[$key] != "") {
+                    $name = $request->name_ijazah[$key];
+                }
                 \App\Models\Ijazah::create([
                     'id_peserta' => $peserta->id,
-                    'nama' => $request->name_ijazah[$key],
+                    'nama' => $name,
                     'file' => $path,
                     'tahun_lulus' => $request->tahun_lulus[$key],
                     'tingkat' => $request->tingkat[$key]
@@ -35,10 +39,14 @@ class PesertaController extends Controller
                 $nama_filez_ska = md5($file_ska->getClientOriginalName()) . '.' . $file_ska->getClientOriginalExtension();
                 $file_ska->move(base_path('../public_html/images/'), $nama_filez_ska);
                 $path_ska =  "/images/" . md5($file_ska->getClientOriginalName()) . '.' . $file_ska->getClientOriginalExtension();
+                $name = "-";
+                if ($request->name_ska[$keyz] != "") {
+                    $name = $request->name_ska[$keyz];
+                }
                 \App\Models\Ska::create([
                     'id_peserta' => $peserta->id,
                     'file' => $path_ska,
-                    'nama' => $request->name_ska[$keyz] ?? '-',
+                    'nama' => $name,
                     'tingkat' => $request->tingkat_ska[$keyz],
                     'berlaku' => $request->berlaku[$keyz],
                     'klasifikasi' => $request->klasifikasi[$keyz],

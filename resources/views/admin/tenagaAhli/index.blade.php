@@ -76,20 +76,24 @@
                                             @endforeach        
                                         </ul>    
                                     </td>
+                                 
                                     <td>
                                         @if (count($item->ijazah) > 0)
+                                        <ul>
                                             @foreach ($item->ijazah as $ij)
-                                                <a href="#showPreview" onclick="changePreview('{{$ij->file}}', '{{$ij->nama}}')" data-toggle="modal" data-target="#showPreview" class="btn btn-success btn-sm" data-toggle="tooltip" data-placement="top" title="Lihat file"><i class="fa fa-file"></i></a>
+                                                <li>{{ $ij->nama }} - {{ $ij->tingkat }}</li>
                                             @endforeach
+                                        </ul>
                                         @endif
                                     </td>
                                     <td>
                                         @if (count($item->ska) > 0)
+                                        <ul>
                                             @foreach ($item->ska as $ska)
-                                                <a href="#showPreview" onclick="changePreview('{{$ska->file}}', '{{$ska->nama}}')" data-toggle="modal" data-target="#showPreview" class="btn btn-success btn-sm" data-toggle="tooltip" data-placement="top" title="Lihat file"><i class="fa fa-file"></i></a>
+                                                <li>{{ $ij->nama }} - {{ $ij->tingkat }}</li>
                                             @endforeach
-                                        @endif</td>
-                                <td><span class="btn btn-info btn-sm" style="color: #fff;cursor: default">{{$item->checkStatus()}}</span></td>
+                                        </ul>
+                                        @endif</td> <td><span class="btn btn-info btn-sm" style="color: #fff;cursor: default">{{$item->checkStatus()}}</span></td>
                                     <td>
                                         <a href="{{ route('tenagaAhli.edit', $item->id) }}" class="btn btn-primary"><i class="fa fa-edit"></i></a>
                                         {{-- @if ($item->checkAvailableDelete()) --}}

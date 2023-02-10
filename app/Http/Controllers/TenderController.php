@@ -112,6 +112,9 @@ class TenderController extends Controller
     {
         $tender = Tender::find($tender);
         $peserta = Peserta::where('nama', 'like', '%' . request()->name . '%');
+        if (isset(request()->start) || isset(request()->end)) {
+            $peserta->whereBetween('created_at', [request()->start, request()->end]);
+        }
         if (isset(request()->no_ktp)) $peserta->where('ktp', 'like', '%' . request()->no_ktp . '%');
         if (isset(request()->tingkat_ijazah)) $peserta->whereHas('ijazah', function ($q) {
             $q->where('tingkat', request()->tingkat_ijazah);

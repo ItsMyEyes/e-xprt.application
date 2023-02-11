@@ -80,7 +80,7 @@
                                         @if (count($item->ska) > 0)
                                         <ul>
                                             @foreach ($item->ska as $ska)
-                                                <li>{{ $ij->nama }} - {{ $ij->tingkat }}</li>
+                                                <li>{{ $ska->nama }} - {{ $ska->tingkat }}</li>
                                             @endforeach
                                         </ul>
                                         @endif</td>

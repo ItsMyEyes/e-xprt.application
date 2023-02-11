@@ -90,7 +90,7 @@
                                         @if (count($item->ska) > 0)
                                         <ul>
                                             @foreach ($item->ska as $ska)
-                                                <li>{{ $ij->nama }} - {{ $ij->tingkat }}</li>
+                                                <li>{{ $ska->nama }} - {{ $ska->tingkat }}</li>
                                             @endforeach
                                         </ul>
                                         @endif</td> <td><span class="btn btn-info btn-sm" style="color: #fff;cursor: default">{{$item->checkStatus()}}</span></td>

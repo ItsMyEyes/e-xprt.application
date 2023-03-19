@@ -47,10 +47,10 @@
         <div class="nav-header">
             <div class="brand-logo">
                 <a href="{{ route('home') }}">
-                    <b class="logo-abbr">X-pert.xyz </b>
+                    <b class="logo-abbr">SIMKP </b>
                     {{-- <span class="logo-compact"><img src="/images/logo-compact.png" alt=""></span> --}}
                     <span class="brand-title">
-                        <h3 style="color: white; text-transform: uppercase">X-pert.xyz</h3>
+                        <h3 style="color: white; text-transform: uppercase">SIMKP</h3>
                         {{-- <img src="/images/logo-text.png" alt=""> --}}
                     </span>
                 </a>

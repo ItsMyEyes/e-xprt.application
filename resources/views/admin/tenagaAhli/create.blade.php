@@ -11,26 +11,32 @@
                         <div class="row">
                             <div class="col-lg-6">
                                 <div class="form-group">
-                                    {{-- <label for="">Nama</label> --}}
+                                    <label for="">Nama</label>
                                     <input type="text" name="name" class="form-control" required placeholder="Full name" >
                                 </div>
                             </div>
                             <div class="col-lg-6">
                                 <div class="form-group">
-                                    {{-- <label for="">No. KTP</label> --}}
+                                    <label for="">No. KTP</label>
                                     <input type="text" name="no_ktp" class="form-control" required placeholder="No. KTP" >
                                 </div>
                             </div>
                             <div class="col-lg-6">
                                 <div class="form-group">
-                                    {{-- <label for="">Tempat Lahir</label> --}}
+                                    <label for="">Tempat Lahir</label>
                                     <input type="text" name="tempat_lahir" class="form-control" required placeholder="Tempat Lahir" >
                                 </div>
                             </div>
-                            <div class="col-lg-6">
+                            <div class="col-lg-3">
                                 <div class="form-group">
-                                    {{-- <label for="">Tanggal Lahir</label> --}}
+                                    <label for="">Tanggal Lahir</label>
                                     <input type="date" name="tgl_lahir" class="form-control bootstrapMaterialDatePicker" required placeholder="Full name" >
+                                </div>
+                            </div>
+                            <div class="col-lg-3">
+                                <div class="form-group">
+                                    <label for="">Tanggal Awal Masuk</label>
+                                    <input type="date" name="tgl_masuk_kerja" class="form-control bootstrapMaterialDatePicker" required placeholder="Full name" >
                                 </div>
                             </div>
                         </div>

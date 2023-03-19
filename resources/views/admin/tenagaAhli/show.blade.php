@@ -12,26 +12,32 @@
                         <div class="row">
                             <div class="col-lg-6">
                                 <div class="form-group">
-                                    {{-- <label for="">Nama</label> --}}
+                                    <label for="">Nama</label>
                                     <input type="text" name="name" value="{{ $peserta->nama }}" class="form-control" required placeholder="Full name" >
                                 </div>
                             </div>
                             <div class="col-lg-6">
                                 <div class="form-group">
-                                    {{-- <label for="">No. KTP</label> --}}
+                                    <label for="">No. KTP</label>
                                     <input type="text" name="no_ktp" value="{{ $peserta->ktp }}" class="form-control" required placeholder="No. KTP" >
                                 </div>
                             </div>
                             <div class="col-lg-6">
                                 <div class="form-group">
-                                    {{-- <label for="">Tempat Lahir</label> --}}
+                                    <label for="">Tempat Lahir</label>
                                     <input type="text" name="tempat_lahir" class="form-control" value="{{ $peserta->tempat_lahir }}"  required placeholder="Tempat Lahir" >
                                 </div>
                             </div>
-                            <div class="col-lg-6">
+                            <div class="col-lg-3">
                                 <div class="form-group">
-                                    {{-- <label for="">Tanggal Lahir</label> --}}
+                                    <label for="">Tanggal Lahir</label>
                                     <input type="date" name="tgl_lahir" class="form-control bootstrapMaterialDatePicker" required value="{{ $peserta->tanggal_lahir }}" placeholder="Full name" >
+                                </div>
+                            </div>
+                            <div class="col-lg-3">
+                                <div class="form-group">
+                                    <label for="">Tanggal Awal Masuk</label>
+                                    <input type="date" name="tgl_masuk_kerja" class="form-control bootstrapMaterialDatePicker" required value="{{ $peserta->tanggal_masuk_kerja }}" placeholder="Full name" >
                                 </div>
                             </div>
                             @if (count($peserta->getNotif()) > 0)

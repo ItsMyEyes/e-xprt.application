@@ -38,7 +38,7 @@
                     <div class="form-input-content">
                         <div class="card login-form mb-0">
                             <div class="card-body pt-5">
-                                <a class="text-center" href="/"> <h4 style="text-transform: uppercase">Sistem Informasi Monitoring Kompetensi Pegawai/h4></a>
+                                <a class="text-center" href="/"> <h4 style="text-transform: uppercase">Sistem Informasi Monitoring Kompetensi Pegawai</h4></a>
                                 @if ($errors->has('email') || $errors->has('password'))
                                     <div class="alert alert-danger">Email / Password salah!</div>
                                 @endif
